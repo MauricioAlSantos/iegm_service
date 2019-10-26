@@ -1,18 +1,20 @@
-FROM gitpod/workspace-full
+FROM gitpod/workspace-full:latest
 
-USER root
+# Install PostgreSQL
+RUN sudo apt-get update \
+ && sudo apt-get install -y postgresql postgresql-contrib \
+ && sudo apt-get clean \
+ && sudo rm -rf /var/cache/apt/* /var/lib/apt/lists/* /tmp/*
 
-RUN apt-get update \
- && apt-get -y install postgresql postgresql-contrib \
- && apt-get clean && rm -rf /var/cache/apt/* /var/lib/apt/lists/* /tmp/*
-
-USER gitpod
-ENV PATH="$PATH:/usr/lib/postgresql/10/bin"
-ENV PGDATA="/home/gitpod/pg/data"
-RUN mkdir -p ~/pg/data; mkdir -p ~/pg/scripts; mkdir -p ~/pg/log; mkdir -p ~/pg/sockets; initdb -D pg/data/
-RUN echo '#!/bin/bash\npg_ctl -D ~/pg/data/ -l ~/pg/log/pgsql.log -o "-k ~/pg/sockets" start' > ~/pg/scripts/pg_start.sh
-RUN echo '#!/bin/bash\npg_ctl -D ~/pg/data/ -l ~/pg/log/pgsql.log -o "-k ~/pg/sockets" stop' > ~/pg/scripts/pg_stop.sh
-RUN chmod +x ~/pg/scripts/*
-ENV PATH="$PATH:$HOME/pg/scripts"
-
-USER root
+# Setup PostgreSQL server for user gitpod
+ENV PATH="$PATH:/usr/lib/postgresql/11/bin"
+ENV PGDATA="/home/gitpod/.pg_ctl/data"
+RUN mkdir -p ~/.pg_ctl/bin ~/.pg_ctl/data ~/.pg_ctl/sockets \
+ && initdb -D ~/.pg_ctl/data/ \
+ && printf "#!/bin/bash\npg_ctl -D ~/.pg_ctl/data/ -l ~/.pg_ctl/log -o \"-k ~/.pg_ctl/sockets\" start\n" > ~/.pg_ctl/bin/pg_start \
+ && printf "#!/bin/bash\npg_ctl -D ~/.pg_ctl/data/ -l ~/.pg_ctl/log -o \"-k ~/.pg_ctl/sockets\" stop\n" > ~/.pg_ctl/bin/pg_stop \
+ && chmod +x ~/.pg_ctl/bin/*
+ENV PATH="$PATH:$HOME/.pg_ctl/bin"
+ENV DATABASE_URL="postgresql://gitpod@localhost"
+ENV PGHOSTADDR="127.0.0.1"
+ENV PGDATABASE="postgres"
