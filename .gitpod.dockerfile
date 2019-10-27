@@ -1,5 +1,8 @@
 FROM gitpod/workspace-full:latest
 
+#Install locale pt_BR
+locale-gen pt_BR.UTF-8
+
 # Install PostgreSQL
 RUN sudo apt-get update \
  && sudo apt-get install -y postgresql postgresql-contrib \
