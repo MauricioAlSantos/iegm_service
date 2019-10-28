@@ -1,29 +1,16 @@
 FROM gitpod/workspace-full:latest
 
-### base ###
-RUN yes | unminimize \
-    && apt-get install -yq \
-        asciidoctor \
-        bash-completion \
-        build-essential \
-        htop \
-        jq \
-        less \
-        llvm \
-        locales \
-        man-db \
-        nano \
-        software-properties-common \
-        sudo \
-        vim \
-    && locale-gen pt_BR.UTF-8 \ 
-    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/*
-
+USER root
+# Install custom tools, runtime, etc.
+RUN   locale-gen pt_BR.UTF-8
 ### Gitpod user ###
 # '-l': see https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#user
 RUN useradd -l -u 33333 -G sudo -md /home/gitpod -s /bin/bash -p gitpod gitpod \
     # passwordless sudo for users in the 'sudo' group
     && sed -i.bkp -e 's/%sudo\s\+ALL=(ALL\(:ALL\)\?)\s\+ALL/%sudo ALL=NOPASSWD:ALL/g' /etc/sudoers
+
+
+USER gitpod
     
 ENV HOME=/home/gitpod
 WORKDIR $HOME
@@ -53,3 +40,6 @@ ENV PGDATABASE="postgres"
 # tasks from a Dockerfile. This workaround checks, on each bashrc eval, if the
 # PostgreSQL server is running, and if not starts it.
 RUN printf "\n# Auto-start PostgreSQL server.\n[[ \$(pg_ctl status | grep PID) ]] || pg_start > /dev/null\n" >> ~/.bashrc
+
+# Give back control
+USER root
