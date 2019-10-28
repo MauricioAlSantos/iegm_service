@@ -3,7 +3,8 @@ FROM gitpod/workspace-full:latest
 USER root
 
 # Install custom tools, runtime, etc.
-RUN   locale-gen pt_BR.UTF-8
+RUN   locale-gen pt_BR.UTF-8 /
+      locale-gen Portuguese_Brazil.1252
 
 USER gitpod
     
