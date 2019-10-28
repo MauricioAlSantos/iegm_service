@@ -1,7 +1,24 @@
 FROM gitpod/workspace-full:latest
 
-#Install locale pt_BR
-locale-gen pt_BR.UTF-8
+### base ###
+RUN yes | unminimize \
+    && apt-get install -yq \
+        asciidoctor \
+        bash-completion \
+        build-essential \
+        htop \
+        jq \
+        less \
+        llvm \
+        locales \
+        man-db \
+        nano \
+        software-properties-common \
+        sudo \
+        vim \
+    && locale-gen en_US.UTF-8 \
+    && locale-gen pt_BR.UTF-8 \ 
+    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/*
 
 # Install PostgreSQL
 RUN sudo apt-get update \
