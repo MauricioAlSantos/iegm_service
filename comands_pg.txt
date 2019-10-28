@@ -1,6 +1,10 @@
-psql
-create database tce;
+create role postgres with password 'postgres';
+alter user postgres with login superuser;
+\c postgres postgres;
+CREATE DATABASE tce;
+GRANT ALL PRIVILEGES ON DATABASE tce TO postgres;
 \c tce
-create schema iegm;
+/*create schema if NOT EXISTS iegm;*/
 \q
 pg_restore remessa.sql;
+pg_restore --create --exit-on-error --verbose --dbname=tce remessa.sql;
