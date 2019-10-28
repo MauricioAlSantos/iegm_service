@@ -4,7 +4,7 @@ USER root
 
 # Install custom tools, runtime, etc.
 RUN   locale-gen pt_BR.UTF-8 \
-&&     locale-gen pt_BR.ISO-8859-1
+&&     locale-gen LATIN1
 
 USER gitpod
     
