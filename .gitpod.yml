@@ -14,6 +14,7 @@ tasks:
   command: >
     pg_start.sh;
     apachectl start;
+    mvn spring-boot:run;
     clear;
     multitail /var/log/apache2/access.log -I /var/log/apache2/error.log -I ~/pg/log/pgsql.log;
 - name: Terminal
