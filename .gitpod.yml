@@ -25,5 +25,5 @@ tasks:
     echo " * pg_start.sh";
     echo " * pg_stop.sh";
     psql -U gitpod -d postgres -f comands_pg.txt;
-    pg_restore --create --exit-on-error --verbose --dbname=tce remessa.backup;
+    pg_restore --create --single-transaction --verbose --dbname=tce remessa.backup;
     mvn spring-boot:run;
