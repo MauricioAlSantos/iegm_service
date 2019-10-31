@@ -30,6 +30,10 @@ public class RemessaController {
   public List<Remessa> all() {
      return remessaService.getAllRemessas();
   }
+  @GetMapping("/remessa")
+  public Remessa getRemessaById(@Valid @RequestParam Long id) {
+     return remessaService.getRemessaById(id).get();
+  }
   @GetMapping("/remessasAno")
   public List<Remessa> getAllRemessasByAno(@Valid @RequestParam Integer ano){
      return remessaService.getAllRemessasByAno(ano);

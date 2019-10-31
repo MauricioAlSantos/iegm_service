@@ -7,9 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Data;
-
-@Data
 @Entity
 @Table(schema = "iegm",name= "remessa")
 public class Remessa {
@@ -24,4 +21,25 @@ public class Remessa {
 
     @Column(name="ano")
     private Integer ano;
+
+    public Long getId(){
+        return this.id;
+    }
+    public void setId(Long id){
+        this.id = id;
+    }
+    public String getNomeEnte(){
+        return this.nomeEnte;
+    }
+    public void setNomeEnte(String nomeEnte){
+        this.nomeEnte = nomeEnte;
+    }
+    public void setAno(Integer ano){
+        this.ano = ano;
+    }
+    public Integer getAno(){
+        return this.ano;
+    }
+
+
 }

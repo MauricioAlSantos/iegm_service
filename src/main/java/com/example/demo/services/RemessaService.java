@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.example.demo.models.Remessa;
 import com.example.demo.repositories.RemessaRepository;
@@ -8,7 +9,7 @@ import com.example.demo.repositories.RemessaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service("remessaService")
+@Service
 public class RemessaService {
    @Autowired
    private RemessaRepository remessaRepository;
@@ -43,4 +44,8 @@ public class RemessaService {
       }
       return false;
    }
+
+public Optional<Remessa> getRemessaById(Long id) {
+	return remessaRepository.findById(id);
+}
 }
