@@ -5,13 +5,6 @@ USER root
 # Install custom tools, runtime, etc.
 RUN   locale-gen pt_BR.UTF-8
 
-USER gitpod
-    
-ENV HOME=/home/gitpod
-WORKDIR $HOME
-# custom Bash prompt
-RUN { echo && echo "PS1='\[\e]0;\u \w\a\]\[\033[01;32m\]\u\[\033[00m\] \[\033[01;34m\]\w\[\033[00m\] \\\$ '" ; } >> .bashrc
-
 RUN build_deps="curl" && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ${build_deps} ca-certificates && \
@@ -21,6 +14,13 @@ RUN build_deps="curl" && \
     DEBIAN_FRONTEND=noninteractive apt-get purge -y --auto-remove ${build_deps} && \
     rm -r /var/lib/apt/lists/*
 
+
+USER gitpod
+    
+ENV HOME=/home/gitpod
+WORKDIR $HOME
+# custom Bash prompt
+RUN { echo && echo "PS1='\[\e]0;\u \w\a\]\[\033[01;32m\]\u\[\033[00m\] \[\033[01;34m\]\w\[\033[00m\] \\\$ '" ; } >> .bashrc
 
 # Install PostgreSQL
 RUN sudo apt-get update \
