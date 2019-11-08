@@ -48,9 +48,10 @@ public class RemessaController {
       return ResponseEntity.ok(remessaService.saveRemessa(remessa));
   }
 
-  @PutMapping("/remessas/{id}")
+  @PutMapping("/remessa/{id}")
   public ResponseEntity<Remessa> updateRemessa(@Valid @RequestBody Remessa remessa,
     @PathVariable(value= "id") Long id) {
+        System.out.println(remessa.getNomeEnte());
         return ResponseEntity.ok(remessaService.updateRemessa(remessa, id));
     }
 

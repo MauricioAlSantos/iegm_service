@@ -32,8 +32,10 @@ public class RemessaService {
 
    public Remessa updateRemessa(Remessa remessa, Long id) {
      Remessa updateremessa = remessaRepository.findById(id).orElse(null);
-     final Remessa myremessa = remessaRepository.save(updateremessa);
-     return myremessa;
+     if(updateremessa!=null){
+        return remessaRepository.save(remessa);
+     }
+     return null;
    }
 
    public Boolean deleteRemessa (Long id) {
