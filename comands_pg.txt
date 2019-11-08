@@ -6,6 +6,6 @@ GRANT ALL PRIVILEGES ON DATABASE tce TO postgres;
 \c tce
 DROP schema if EXISTS iegm CASCADE;
 create schema if NOT EXISTS iegm;
-\q
-pg_restore remessa.backup;
-pg_restore --create --exit-on-error --verbose --dbname=tce remessa.backup;
+quit
+pg_restore iegm_gestores.backup;
+pg_restore --create --exit-on-error --verbose --dbname=tce iegm_gestores.backup;
