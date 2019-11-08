@@ -4,8 +4,7 @@ alter user postgres with login superuser;
 CREATE DATABASE tce;
 GRANT ALL PRIVILEGES ON DATABASE tce TO postgres;
 \c tce
-DROP schema if EXISTS iegm CASCADE;
-create schema if NOT EXISTS iegm;
-quit
+DROP schema if EXISTS iegm,gestor CASCADE;
+\q
 pg_restore iegm_gestores.backup;
 pg_restore --create --exit-on-error --verbose --dbname=tce iegm_gestores.backup;

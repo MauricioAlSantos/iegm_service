@@ -20,6 +20,10 @@ tasks:
     multitail /var/log/apache2/access.log -I /var/log/apache2/error.log -I ~/pg/log/pgsql.log;
 - name: Terminal
   command: >
+    git lfs install;
+    git lfs track "*.backup";
+    git lfs fetch;
+    git lfs checkout;
     clear;
     echo "Commands:";
     echo " * pg_start.sh";
