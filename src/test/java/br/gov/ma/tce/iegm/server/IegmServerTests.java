@@ -1,4 +1,4 @@
-package com.example.demo;
+package br.gov.ma.tce.iegm.server;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class DemoApplicationTests {
+public class IegmServerTests {
 
 	@Test
 	public void contextLoads() {
