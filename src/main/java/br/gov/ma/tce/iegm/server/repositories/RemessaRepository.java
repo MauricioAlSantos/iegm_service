@@ -15,5 +15,7 @@ public interface RemessaRepository
     Remessa findRemessaByNomeEnte(String nomeEnte);
     List<Remessa> findAllByAno(Integer ano);
     Optional<Remessa> findById(Integer id);
+    List<Remessa> findAllByAnoAndEnvioNotNull(Integer ano);
+    List<Remessa> findAllByAnoAndValidadoTrue(Integer ano);
 }
 

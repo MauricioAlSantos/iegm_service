@@ -21,6 +21,9 @@ public class RemessaService {
    public List<Remessa> getAllRemessasByAno(Integer ano){
        return remessaRepository.findAllByAno(ano);
    }
+   public List<Remessa> getAllRemessasValidadasByAno(Integer ano){
+       return remessaRepository.findAllByAnoAndValidadoTrue(ano);
+   }
 
    public List<Remessa> getAllRemessas() {
        return remessaRepository.findAll();

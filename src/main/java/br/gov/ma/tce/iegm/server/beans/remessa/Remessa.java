@@ -16,7 +16,7 @@ import javax.persistence.Transient;
 @Table(schema = "iegm",name= "remessa")
 public class Remessa implements Serializable{
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -75,7 +75,7 @@ public class Remessa implements Serializable{
 	Float nota;
 	@Column(name = "calculado")
 	Boolean calculado;
-	
+
 	@Column(name = "ieduc_prev")
 	Float ieducPrev;
 	@Column(name = "isaude_prev")
@@ -107,18 +107,18 @@ public class Remessa implements Serializable{
 	String faixa;
 	@Column(name="cod_faixa")
 	int codFaixa;
-	
+
 	@Column(name = "faixa_prev")
 	String faixaPrev;
 	@Column(name="cod_faixa_prev")
 	int codFaixaPrev;
-	
+
 	@Transient
 	String codFaixas[] = {"","A","B+","B","C+","C"};
 
 	@Column(name = "quesitos_gerados")
 	Boolean quesitosGerados;
-	
+
 	public Remessa(){
 		validado= false;
 		calculado = false;
@@ -135,7 +135,7 @@ public class Remessa implements Serializable{
 
 	public Remessa(int remessaId,int enteId,String nomeEnte, Integer ano, Boolean validado, Float nota,
 			String faixa,boolean quesitosGerados) {
-		
+
 		this.remessaId = remessaId;
 		this.ano = ano;
 		this.validado = validado;
@@ -144,9 +144,9 @@ public class Remessa implements Serializable{
 		this.enteId =enteId;
 		this.nomeEnte = nomeEnte;
 		this.quesitosGerados = quesitosGerados;
-		
+
 	}
-	
+
 	public Long getCodComprovante() {
 		return codComprovante;
 	}
@@ -206,7 +206,7 @@ public class Remessa implements Serializable{
 	public void nullUsuarioExternoId(){
 		this.usuarioExternoId = null;
 	}
-	
+
 	public Boolean getValidado() {
 		return validado;
 	}
@@ -287,13 +287,13 @@ public class Remessa implements Serializable{
 	public void setNota(Float nota) {
 		this.nota = nota;
 	}
-	
+
 	//Previa
-	
-	
+
+
 
 	public String getFaixa(){
-		
+
 		if(codFaixa==0 && nota!=null){//Quer dizer que ainda nao foi calculado
 			// codFaixa variavel que determinará a nota no final usando o array de faixas.
 			//Vai descendo a faixa ao aumentar o indice
@@ -301,7 +301,7 @@ public class Remessa implements Serializable{
 			//A = nota>=90%; ieduc>=25% e ao menos 5 notas>=90%
 			if(nota>=90){
 				int count = 0;
-				if(ieduc>=90)count++; if(isaude>=90)count++; if(iplan>=90)count++; if(ifiscal>=90)count++; 
+				if(ieduc>=90)count++; if(isaude>=90)count++; if(iplan>=90)count++; if(ifiscal>=90)count++;
 				if(iamb>=90)count++; if(icidade>=90)count++; if(igovti>=90)count++;
 				//
 				if(count>=5){
@@ -320,7 +320,7 @@ public class Remessa implements Serializable{
 		return faixa;
 	}
 	public String getFaixaPrev(){
-		
+
 		if(codFaixaPrev==0 && notaPrev!=null){//Quer dizer que ainda nao foi calculado
 			// codFaixa variavel que determinará a nota no final usando o array de faixas.
 			//Vai descendo a faixa ao aumentar o indice
@@ -328,7 +328,7 @@ public class Remessa implements Serializable{
 			//A = nota>=90%; ieduc>=25% e ao menos 5 notas>=90%
 			if(notaPrev>=90){
 				int count = 0;
-				if(ieducPrev>=90)count++; if(isaudePrev>=90)count++; if(iplanPrev>=90)count++; if(ifiscalPrev>=90)count++; 
+				if(ieducPrev>=90)count++; if(isaudePrev>=90)count++; if(iplanPrev>=90)count++; if(ifiscalPrev>=90)count++;
 				if(iambPrev>=90)count++; if(icidadePrev>=90)count++; if(igovtiPrev>=90)count++;
 				//
 				if(count>=5){
@@ -525,7 +525,7 @@ public class Remessa implements Serializable{
 		else if(60<=pontos&&pontos<=74.99) return "background-color:CornflowerBlue ;";
 		else if(50<=pontos&&pontos<=59.99) return "background-color:Chocolate;";
 		else return "background-color:FireBrick ;";*/
-
+        if(pontos==null)return "background-color:#F19455;";
 		if(pontos>=90) return "background-color:#5B9BD5;";
 		else if(75<=pontos&&pontos<=89.99) return "background-color:#70AD47;";
 		else if(60<=pontos&&pontos<=74.99) return "background-color:#CCC;";
@@ -534,7 +534,7 @@ public class Remessa implements Serializable{
 
 
 	}
-	
+
 	public Boolean getQuesitosGerados() {
 		return quesitosGerados;
 	}
@@ -562,5 +562,5 @@ public class Remessa implements Serializable{
 		boolean enviado = (envio ==null)?false:true;
 		return enviado;
 	}
-	
+
 }
